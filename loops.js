@@ -165,11 +165,23 @@ let panelIsVisible = false;
 insertPanel();
 
 
+
 function insertPanel() {
-  const columns = document.getElementById("full-bleed-container");
-  if (columns) {
-    columns.after(panel);
-    // document.body.append(panel);
+
+  document.body.appendChild(panel);
+  // youtube is a piece of shit of a website, with inconsistent naming, inconsistent between browsers, with some weird shit happening so I am force to do this dogshit:
+  const video = document.querySelector(".video-stream");
+
+  if (video) {
+    // Get the position of the "element" element relative to the viewport
+    const elementRect = video.getBoundingClientRect();
+    // Calculate the position to place the "panel" element
+    const panelTop = elementRect.bottom;
+    const panelLeft = elementRect.left;
+    panel.style.position = 'absolute';
+    panel.style.top = panelTop + 'px';
+    panel.style.left = panelLeft + 'px';
+
     document.getElementById("yt-loop-27100145-set-start").onclick = function () { setLoopTimestamp(0); };
     document.getElementById("yt-loop-27100145-set-end").onclick = function () { setLoopTimestamp(1); };
     document.getElementById("yt-loop-27100145-add-loop").onclick = function () { addLoop(); };
