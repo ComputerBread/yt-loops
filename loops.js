@@ -124,7 +124,7 @@ function startLoop() {
   const video = document.querySelector(".video-stream");
   video.currentTime = loops[currentLoopIdx].start;
 
-  let loopHandler = video.addEventListener('timeupdate', () => {
+  video.addEventListener('timeupdate', function timeupdateHandler() {
 
     // if we toggle off all the loops
     // alternative approach is to remove this handler when all loops are turned off, but do I want to keep the handler in a global variable?
@@ -135,7 +135,7 @@ function startLoop() {
 
     // all loops were removed
     if (loops.length === 0) {
-      video.removeEventListener("timeupdate", loopHandler);
+      video.removeEventListener("timeupdate", timeupdateHandler);
       return;
     }
 
